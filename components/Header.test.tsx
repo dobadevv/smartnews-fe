@@ -15,7 +15,7 @@ describe('Header', () => {
     render(<Header />);
     expect(screen.getByRole('link', { name: 'feed' })).toHaveAttribute('href', '/');
     const portfolio = screen.getByRole('link', { name: 'portfolio ↗' });
-    expect(portfolio).toHaveAttribute('href', 'https://github.com/dobadevv/dobadev-portfolio');
+    expect(portfolio).toHaveAttribute('href', 'https://dobadev.io.vn');
     expect(portfolio).toHaveAttribute('target', '_blank');
     expect(portfolio).toHaveAttribute('rel', 'noopener noreferrer');
   });

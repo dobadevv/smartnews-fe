@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const PORTFOLIO_URL = 'https://github.com/dobadevv/dobadev-portfolio';
+const PORTFOLIO_URL = 'https://dobadev.io.vn';
 
 export function Header() {
   return (
