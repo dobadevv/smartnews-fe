@@ -1,0 +1,17 @@
+# See https://docs.docker.com/engine/reference/builder/#dockerignore-file
+.git
+.github
+.next
+.serena
+.gitignore
+.dockerignore
+Dockerfile
+README.md
+CLAUDE.md
+AGENTS.md
+node_modules
+.vscode
+.idea
+*.md
+.env.local
+.env.*.local
