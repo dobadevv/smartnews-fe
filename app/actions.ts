@@ -3,7 +3,7 @@
 import { getArticles } from '@/lib/api/articles';
 import { API_ERROR_CODE, ApiError } from '@/lib/api/errors';
 import { PAGE_SIZE } from '@/lib/constants';
-import { getTodayInVietnam, sanitizeFilters } from '@/lib/filters';
+import { sanitizeFilters } from '@/lib/filters';
 import type { Article, ArticleFilters } from '@/lib/types';
 
 export type LoadMoreResult =
@@ -13,7 +13,7 @@ export type LoadMoreResult =
 const MAX_CURSOR_LENGTH = 512;
 
 export async function loadMoreArticles(filters: ArticleFilters, cursor: string): Promise<LoadMoreResult> {
-  const safeFilters = sanitizeFilters(filters, getTodayInVietnam());
+  const safeFilters = sanitizeFilters(filters);
   if (!isValidCursor(cursor)) return { status: 'error' };
   try {
     const page = await getArticles({ ...safeFilters, cursor, limit: PAGE_SIZE });

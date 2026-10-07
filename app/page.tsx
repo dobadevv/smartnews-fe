@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function FeedPage({ searchParams }: PageProps<'/'>) {
   const today = getTodayInVietnam();
-  const filters = parseFilters(await searchParams, today);
+  const filters = parseFilters(await searchParams);
   const [articleList, facets] = await Promise.all([
     getArticles({ ...filters, limit: PAGE_SIZE }),
     getFeedFacets({ from: filters.from, to: filters.to }),
@@ -25,7 +25,6 @@ export default async function FeedPage({ searchParams }: PageProps<'/'>) {
         filters={filters}
         initialItems={articleList.items}
         initialNextCursor={articleList.nextCursor}
-        today={today}
       />
     </section>
   );

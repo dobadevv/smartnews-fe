@@ -39,7 +39,7 @@ describe('loadMoreArticles', () => {
       q: '',
       category: 'all',
       source: 'all',
-      from: TODAY,
+      from: null,
       to: null,
       cursor: 'cursor-2',
       limit: 6,

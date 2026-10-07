@@ -11,23 +11,23 @@ type FeedNavigation = {
   isPending: boolean;
 };
 
-export function useFeedNavigation({ today }: { today: string }): FeedNavigation {
+export function useFeedNavigation(): FeedNavigation {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const applyFilters = useCallback(
     (next: ArticleFilters) => {
-      const href = buildFeedHref(next, today);
+      const href = buildFeedHref(next);
       startTransition(() => {
         router.replace(href, { scroll: false });
       });
     },
-    [router, today],
+    [router],
   );
 
   const resetFilters = useCallback(() => {
-    applyFilters(createDefaultFilters(today));
-  }, [applyFilters, today]);
+    applyFilters(createDefaultFilters());
+  }, [applyFilters]);
 
   return { applyFilters, resetFilters, isPending };
 }

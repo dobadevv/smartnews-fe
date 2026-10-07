@@ -20,17 +20,17 @@ export function getTodayInVietnam(now: Date = new Date()): string {
   return `${year}-${month}-${day}`;
 }
 
-export function createDefaultFilters(today: string): ArticleFilters {
-  return { q: '', category: ALL_OPTION, source: ALL_OPTION, from: today, to: today };
+export function createDefaultFilters(): ArticleFilters {
+  return { q: '', category: ALL_OPTION, source: ALL_OPTION, from: null, to: null };
 }
 
-export function parseFilters(searchParams: FeedSearchParams, today: string): ArticleFilters {
+export function parseFilters(searchParams: FeedSearchParams): ArticleFilters {
   return {
     q: (firstValue(searchParams.q) ?? '').trim(),
     category: parseOption(firstValue(searchParams.category)),
     source: parseOption(firstValue(searchParams.source)),
-    from: parseDateParam(firstValue(searchParams.from), today),
-    to: parseDateParam(firstValue(searchParams.to), today),
+    from: parseDateParam(firstValue(searchParams.from)),
+    to: parseDateParam(firstValue(searchParams.to)),
   };
 }
 
@@ -42,20 +42,19 @@ function parseOption(value: string | undefined): string {
   return value ? value : ALL_OPTION;
 }
 
-function parseDateParam(value: string | undefined, today: string): string | null {
-  if (value === undefined) return today;
-  if (value === '') return null;
-  return isValidIsoDate(value) ? value : today;
+function parseDateParam(value: string | undefined): string | null {
+  if (value === undefined || value === '') return null;
+  return isValidIsoDate(value) ? value : null;
 }
 
-export function sanitizeFilters(input: unknown, today: string): ArticleFilters {
+export function sanitizeFilters(input: unknown): ArticleFilters {
   const record = isRecord(input) ? input : {};
   return {
     q: typeof record.q === 'string' ? record.q.trim() : '',
     category: sanitizeOption(record.category),
     source: sanitizeOption(record.source),
-    from: sanitizeDate(record.from, today),
-    to: sanitizeDate(record.to, today),
+    from: sanitizeDate(record.from),
+    to: sanitizeDate(record.to),
   };
 }
 
@@ -67,18 +66,18 @@ function sanitizeOption(value: unknown): string {
   return typeof value === 'string' && value !== '' ? value : ALL_OPTION;
 }
 
-function sanitizeDate(value: unknown, today: string): string | null {
+function sanitizeDate(value: unknown): string | null {
   if (value === null) return null;
-  return typeof value === 'string' && isValidIsoDate(value) ? value : today;
+  return typeof value === 'string' && isValidIsoDate(value) ? value : null;
 }
 
-export function buildFeedHref(filters: ArticleFilters, today: string): string {
+export function buildFeedHref(filters: ArticleFilters): string {
   const params = new URLSearchParams();
   if (filters.q !== '') params.set('q', filters.q);
   if (filters.category !== ALL_OPTION) params.set('category', filters.category);
   if (filters.source !== ALL_OPTION) params.set('source', filters.source);
-  appendDateParam({ params, key: 'from', value: filters.from, today });
-  appendDateParam({ params, key: 'to', value: filters.to, today });
+  appendDateParam({ params, key: 'from', value: filters.from });
+  appendDateParam({ params, key: 'to', value: filters.to });
   const query = params.toString();
   return query === '' ? '/' : `/?${query}`;
 }
@@ -87,15 +86,13 @@ function appendDateParam({
   params,
   key,
   value,
-  today,
 }: {
   params: URLSearchParams;
   key: DateKey;
   value: string | null;
-  today: string;
 }): void {
-  if (value === today) return;
-  params.set(key, value ?? '');
+  if (value === null) return;
+  params.set(key, value);
 }
 
 export function serializeFilters(filters: ArticleFilters): string {

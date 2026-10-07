@@ -12,10 +12,9 @@ type ArticleFeedProps = {
   filters: ArticleFilters;
   initialItems: Article[];
   initialNextCursor: string | null;
-  today: string;
 };
 
-export function ArticleFeed({ filters, initialItems, initialNextCursor, today }: ArticleFeedProps) {
+export function ArticleFeed({ filters, initialItems, initialNextCursor }: ArticleFeedProps) {
   const [items, setItems] = useState(initialItems);
   const [nextCursor, setNextCursor] = useState(initialNextCursor);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +46,7 @@ export function ArticleFeed({ filters, initialItems, initialNextCursor, today }:
         <span className="text-accent">{formatArticleCount(items.length)}</span>Bài viết
       </h2>
       {items.length === 0 ? (
-        <EmptyState today={today} />
+        <EmptyState />
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(min(320px,100%),1fr))] gap-6">
           {items.map((article) => (

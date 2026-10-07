@@ -12,13 +12,11 @@ const { replace } = vi.hoisted(() => ({ replace: vi.fn() }));
 vi.mock('next/navigation', () => ({ useRouter: () => ({ replace }) }));
 
 const TODAY = '2026-10-07';
-const filters = createDefaultFilters(TODAY);
+const filters = createDefaultFilters();
 const firstPage = [createArticle({ id: 1, title: 'Bài một' }), createArticle({ id: 2, title: 'Bài hai' })];
 
 function renderFeed(initialNextCursor: string | null = 'cursor-2', initialItems = firstPage) {
-  return render(
-    <ArticleFeed filters={filters} initialItems={initialItems} initialNextCursor={initialNextCursor} today={TODAY} />,
-  );
+  return render(<ArticleFeed filters={filters} initialItems={initialItems} initialNextCursor={initialNextCursor} />);
 }
 
 beforeEach(() => {

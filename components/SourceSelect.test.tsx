@@ -7,7 +7,7 @@ import { SourceSelect } from '@/components/SourceSelect';
 import { createDefaultFilters } from '@/lib/filters';
 import type { ArticleFilters } from '@/lib/types';
 
-const filters = createDefaultFilters('2026-10-07');
+const filters = createDefaultFilters();
 const sources = [
   { value: 'infoq', label: 'InfoQ', articleCount: 5 },
   { value: 'coindesk', label: 'CoinDesk', articleCount: 3 },

@@ -4,7 +4,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { SearchBox } from './SearchBox';
 import { createDefaultFilters } from '@/lib/filters';
 
-const filters = createDefaultFilters('2026-10-07');
+const filters = createDefaultFilters();
 
 function getInput() {
   return screen.getByRole('searchbox', { name: 'Tìm theo tiêu đề hoặc summary' });

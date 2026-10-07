@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { CategoryChips } from '@/components/CategoryChips';
 import { createDefaultFilters } from '@/lib/filters';
 
-const filters = createDefaultFilters('2026-10-07');
+const filters = createDefaultFilters();
 const categories = [
   { value: 'frontend', label: 'frontend', articleCount: 4 },
   { value: 'crypto', label: 'crypto', articleCount: 6 },

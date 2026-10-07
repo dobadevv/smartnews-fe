@@ -8,11 +8,11 @@ import { createDefaultFilters } from '@/lib/filters';
 import type { ArticleFilters, DateRange } from '@/lib/types';
 
 const TODAY = '2026-10-07';
-const defaults = createDefaultFilters(TODAY);
+const defaults = createDefaultFilters();
 
 function ControlledDatePicker({
   field = 'from',
-  filters = defaults,
+  filters = { ...defaults, from: TODAY },
   onFiltersChange = vi.fn(),
 }: {
   field?: keyof DateRange;
@@ -103,7 +103,7 @@ describe('DatePicker', () => {
   it('ignores a blocked day after the "to" date in the from picker', async () => {
     const user = userEvent.setup();
     const onFiltersChange = vi.fn();
-    render(<ControlledDatePicker onFiltersChange={onFiltersChange} />);
+    render(<ControlledDatePicker filters={{ ...defaults, to: '2026-10-07' }} onFiltersChange={onFiltersChange} />);
     await user.click(getTrigger());
     const blockedDay = screen.getByRole('button', { name: '08/10/2026' });
     expect(blockedDay).toHaveAttribute('aria-disabled', 'true');
@@ -168,7 +168,7 @@ describe('DatePicker', () => {
   it('clears the value with the × button', async () => {
     const user = userEvent.setup();
     const onFiltersChange = vi.fn();
-    render(<ControlledDatePicker field="to" onFiltersChange={onFiltersChange} />);
+    render(<ControlledDatePicker field="to" filters={{ ...defaults, to: TODAY }} onFiltersChange={onFiltersChange} />);
     await user.click(screen.getByRole('button', { name: 'Bỏ lọc ngày' }));
     expect(onFiltersChange).toHaveBeenCalledWith({ ...defaults, to: null });
   });

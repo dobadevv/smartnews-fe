@@ -16,25 +16,23 @@ describe('useFeedNavigation', () => {
   });
 
   it('replaces the URL with the canonical href without scrolling', () => {
-    const today = '2026-10-07';
-    const { result } = renderHook(() => useFeedNavigation({ today }));
+    const { result } = renderHook(() => useFeedNavigation());
 
     act(() => {
       result.current.applyFilters({
         q: 'rust',
         category: 'all',
         source: 'infoq',
-        from: today,
+        from: '2026-10-07',
         to: null,
       });
     });
 
-    expect(mockReplace).toHaveBeenCalledWith('/?q=rust&source=infoq&to=', { scroll: false });
+    expect(mockReplace).toHaveBeenCalledWith('/?q=rust&source=infoq&from=2026-10-07', { scroll: false });
   });
 
   it('resets to /', () => {
-    const today = '2026-10-07';
-    const { result } = renderHook(() => useFeedNavigation({ today }));
+    const { result } = renderHook(() => useFeedNavigation());
 
     act(() => {
       result.current.resetFilters();

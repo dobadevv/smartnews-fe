@@ -14,7 +14,7 @@ export type POPOVER = (typeof POPOVER)[keyof typeof POPOVER];
 type FilterPanelProps = { filters: ArticleFilters; facets: FeedFacets; today: string };
 
 export function FilterPanel({ filters, facets, today }: FilterPanelProps) {
-  const { applyFilters, resetFilters } = useFeedNavigation({ today });
+  const { applyFilters, resetFilters } = useFeedNavigation();
   const [openPopover, setOpenPopover] = useState<POPOVER | null>(null);
 
   const changePopover = useCallback((popover: POPOVER, open: boolean) => {

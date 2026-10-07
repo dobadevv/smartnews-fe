@@ -14,7 +14,7 @@ vi.mock('next/navigation', () => ({
 describe('EmptyState', () => {
   it('shows the message and resets filters to /', async () => {
     const user = userEvent.setup();
-    render(<EmptyState today="2026-10-07" />);
+    render(<EmptyState />);
 
     expect(screen.getByText('Không có bài viết phù hợp')).toBeInTheDocument();
 

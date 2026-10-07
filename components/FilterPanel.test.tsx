@@ -14,7 +14,7 @@ const facets = {
   sources: [{ value: 'infoq', label: 'InfoQ', articleCount: 2 }],
 };
 
-function renderPanel(filters = createDefaultFilters(TODAY)) {
+function renderPanel(filters = createDefaultFilters()) {
   return render(<FilterPanel filters={filters} facets={facets} today={TODAY} />);
 }
 
@@ -57,17 +57,17 @@ describe('FilterPanel', () => {
 
   it('reset navigates to /', async () => {
     const user = userEvent.setup();
-    renderPanel({ ...createDefaultFilters(TODAY), category: 'frontend' });
+    renderPanel({ ...createDefaultFilters(), category: 'frontend' });
     await user.click(screen.getByRole('button', { name: '↺ Đặt về mặc định' }));
     expect(replace).toHaveBeenCalledWith('/', { scroll: false });
   });
 
-  it('clearing the from date navigates to an href with from=', async () => {
+  it('clearing the from date navigates to /', async () => {
     const user = userEvent.setup();
-    renderPanel();
+    renderPanel({ ...createDefaultFilters(), from: '2026-10-01' });
     const [clearFrom] = screen.getAllByRole('button', { name: 'Bỏ lọc ngày' });
     await user.click(clearFrom);
-    expect(replace).toHaveBeenCalledWith('/?from=', { scroll: false });
+    expect(replace).toHaveBeenCalledWith('/', { scroll: false });
   });
 
   it('choosing a category navigates with the category param', async () => {

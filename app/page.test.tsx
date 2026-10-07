@@ -43,10 +43,10 @@ describe('FeedPage', () => {
       category: 'frontend',
       source: 'all',
       from: null,
-      to: '2026-10-07',
+      to: null,
       limit: 6,
     });
-    expect(getFeedFacets).toHaveBeenCalledWith({ from: null, to: '2026-10-07' });
+    expect(getFeedFacets).toHaveBeenCalledWith({ from: null, to: null });
   });
 
   it('renders the intro, filter panel and feed', async () => {
