@@ -25,6 +25,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: { default: 'Doba.news', template: '%s · Doba.news' },
   description: 'Personal reader · Tin công nghệ được tuyển chọn',
+  icons: {
+    icon: '/assets/favicon.png',
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
